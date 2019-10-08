@@ -221,7 +221,6 @@
       //capture form inputs
       $("#submit").on("click", function(event) {
         event.preventDefault();
-        var formAction = this.action;
         //create object
         function validateForm() {
         var isValid = true;
@@ -241,6 +240,7 @@
 
 
       //if required fields all filled out
+      if (validateForm()){
       var formData = {
         name: $("#name").val(),
         photo: $("#photo").val(),
@@ -258,22 +258,17 @@
         ]
       };
 
-      //do your own request an handle the results
+      //AJAZ post data to friends API
       $.post("/api/friends", formData, function (data) {
         $("#match-name").text(data.name);
         $("#match-img").attr("src", data.photo);
+        //show closest match in modal
         $("#results-modal").modal("toggle");
       });
-        )
-
-
-
-
-
-
-
-
-
+      } else {
+        alert ("Please fill out all the fields before submitting!");
+      }
+      });
     </script>
   </div>
 </body>
