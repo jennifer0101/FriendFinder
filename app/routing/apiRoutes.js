@@ -1,31 +1,60 @@
 
-var freinds = require("/../api/friends");
+
+
+
+var friends = require("../data/friends");
 
 //GET route to display JSON of all possible friends
 module.exports = function(app) {
     app.get("/api/friends", function(req, res){
         res.json(friends);
     });
-}
 
-function generateDiff(); {
-    
-}
+    app.post("/api/friends", function(req,res){
 
-app.post("/../api/friends", function(req,res){
-    var savedName = "";
-    var savedPic = "";
-    var savedDiff = "";
-    for (var i = 0; i < friends.length; i++){
-        var ans = generateDiff();
-        if (ans < savedDiff) {
-            savedDiff = ans;
-            savedPic=person.photo;
-            savedName=person.name;
+        var newEntry = req.body;
+
+        function generateDiff() {
+        for (var i = 0; i < friends.length; i++) {
+            var difference = 0;
         }
+    
+
+    //     //grab array of new answers
+    
+    //     //compare to array of numbers from previous answers, friends api
+    
+    //     //compare one by one, always storing the lowest result
+    
+    //     //
+        }
+        var savedName = "";
+        var savedPic = "";
+        var savedDiff = "";
+        for (var i = 0; i < friends.length; i++){
+            var ans = generateDiff();
+            if (ans < savedDiff) {
+                savedDiff = ans;
+                savedPic = person.photo;
+                savedName = person.name;
+            }
+        }
+        res.json(
+            {
+                name: savedName,
+                pic: savedPic
+            }
+        );
     }
-}
-//POST routes /api/friends. This will be used to handle incoming survey results. This route will also be used to handle the compatibility logic.
+
+)};
+
+
+
+
+
+
+
 
 //loop through freinds
 

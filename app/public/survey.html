@@ -24,7 +24,7 @@
   </style>
   <!--Survey input fields for name and photo-->
   <div class="container">
-    <form>
+
       <br><br>
       <h1>Survey Questions</h1>
       <br>
@@ -173,7 +173,6 @@
         <option value="4">4</option>
         <option value="5">5 (Strongly Agree)</option>
       </select>
-    </form>
     <br />
     <br />
 
@@ -215,12 +214,16 @@
     <!--Script javascript-->
     <script type="text/javascript">
 
+    // create a variable for config
+
+
       for (var selector in config) {
         $(selector).chosen(config[selector]);
       }
       //capture form inputs
       $("#submit").on("click", function(event) {
         event.preventDefault();
+        console.log("Button clicked");
         //create object
         function validateForm() {
         var isValid = true;
@@ -229,7 +232,7 @@
           isValid = false;
         }
       });
-      $(".chosen-selct").each(function() {
+      $(".chosen-select").each(function() {
         if ($(this).val() === "") {
           isValid = false;
         }
@@ -237,8 +240,6 @@
       return isValid;
       }
     
-
-
       //if required fields all filled out
       if (validateForm()){
       var formData = {
@@ -258,8 +259,8 @@
         ]
       };
 
-      //AJAZ post data to friends API
-      $.post("/api/friends", formData, function (data) {
+      //AJAX post data to friends API
+      $.post("api/friends", formData, function (data) {
         $("#match-name").text(data.name);
         $("#match-img").attr("src", data.photo);
         //show closest match in modal
