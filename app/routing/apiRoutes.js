@@ -1,77 +1,47 @@
-
-
-
-
-var friends = require("../data/friends");
+var friendsData = require("../data/friends");
 
 //GET route to display JSON of all possible friends
-module.exports = function(app) {
-    app.get("/api/friends", function(req, res){
+module.exports = function (app) {
+    app.get("/api/friends", function (req, res) {
         res.json(friends);
     });
 
-    app.post("/api/friends", function(req,res){
+    app.post("/api/friends", function (req, res) {
 
+        //loop through new entry
         var newEntry = req.body;
-
-        function generateDiff() {
-        for (var i = 0; i < friends.length; i++) {
-            var difference = 0;
+        var newScoreArray = [];
+        for (var i = 0; i < newEntry.scores.length; i++) {
+            newScoreArray.push(parseInt(req.body.scores[i]))
         }
-    
+        req.body.scores = newScoreArray;
 
-    //     //grab array of new answers
-    
-    //     //compare to array of numbers from previous answers, friends api
-    
-    //     //compare one by one, always storing the lowest result
-    
-    //     //
+        //loop through friends array
+        var compareFriendsArray = [];
+        for (var i = 0; i < friendsData.length; i++) {
+            var totalVariance = 0;
+            //loop through scores to compare friends
+            for (var j = 0; j < matchFriend.scores.length; j++) {
+                var totalVariance = Math.abs(matchFriend[i].score[j] - parseInt(newEntry.scores[j]));
+            }
+            //push result into totalVariance array
+            compareFriendsArray.push(totalVariance);
         }
-        var savedName = "";
-        var savedPic = "";
-        var savedDiff = "";
-        for (var i = 0; i < friends.length; i++){
-            var ans = generateDiff();
-            if (ans < savedDiff) {
-                savedDiff = ans;
-                savedPic = person.photo;
-                savedName = person.name;
+
+        //find best match
+        for (var i = 0; i < compareFriendsArray.length; i++) {
+            if (compareFriendsArray[i] <= totalVariance[bestFriend]) {
+                bestFriend = i;
             }
         }
-        res.json(
-            {
-                name: savedName,
-                pic: savedPic
-            }
-        );
+
+        //return the best match
+        var theVeryBestest = friendsData[bestMatch];
+        res.json(theVeryBestest);
+
+        //push new submission to freinds array
+        friendsData.push(req.body);
     }
 
-)};
-
-
-
-
-
-
-
-
-//loop through freinds
-
-//math
-
-//store result
-
-//end of loop, array of all results. pick the highest as the best match.
-
-//return that person
-
-
-
-
-
-// app.post("/api/friends", function(req, res){
-
-// })
-
-//res.json(friends);
+    )
+};

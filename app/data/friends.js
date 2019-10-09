@@ -1,4 +1,4 @@
-var friends = [
+var friendsData = [
     {
         name: "Oliver",
         Photo: "https://mymodernmet.com/wp/wp-content/uploads/2019/01/maine-coon-cat-photography-26.jpg",
@@ -192,4 +192,4 @@ var friends = [
   ];
   
   // Here we export the array. This makes it accessible to other files using require.
-  module.exports = friends;
+  module.exports = friendsData;
