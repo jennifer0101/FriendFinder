@@ -2,18 +2,27 @@
 <html lang="en-us">
 
 <head>
+  
   <meta charset="UTF-8" />
   <!-- responsive screen size viewport code-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Add professional title to project-->
   <title>Friend Finder</title>
-  <!-- Link to Bootstrap-->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
   <!-- Font Awesome Glyphicons -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" />
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" />-->
   <!-- Link to JQuery-->
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!--<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->
+  <!-- Link to Bootstrap-->
+  <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- Chosen -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
+  
 </head>
 
 <body>
@@ -161,7 +170,7 @@
     <br />
 
     <!--Submit-->
-    <button type="submit" class="btn btn-dark btn-lg btn-block" id="submit">
+    <button type="submit" class="btn btn-dark btn-lg btn-block" data-target:"modalMatch" id="submit">
       <i class="fa fa-check-circle" aria-hidden="true"></i> Submit
     </button>
     <hr />
@@ -176,13 +185,13 @@
 
     <!--Modal-->
     <div id="modalMatch" class="modal" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document" style="background-color: #fe3465">
+      <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Best Match</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-            </button>
+            </button>-->
           </div>
           <div class="modal-body">
             <h2 id="nameMatch"></h2>
@@ -201,9 +210,9 @@
       // create a variable for config
 
 
-      for (var selector in config) {
-        $(selector).chosen(config[selector]);
-      }
+      // for (var selector in config) {
+      //   $(selector).chosen(config[selector]);
+      // }
       //capture form inputs
       $("#submit").on("click", function (event) {
         event.preventDefault();
@@ -245,10 +254,11 @@
 
           //AJAX post data to friends API
           $.post("api/friends", formData, function (data) {
-            $("#match-name").text(data.name);
-            $("#match-img").attr("src", data.photo);
-            //show closest match in modal
-            $("#results-modal").modal("toggle");
+            console.log(data);
+            $("#nameMatch").text(data.name);
+            $("#imageMatch").attr("src", data.Photo);
+            // //show closest match in modal
+            $("#modalMatch").modal("toggle");
           });
         } else {
           alert("Please fill out all the fields before submitting!");
