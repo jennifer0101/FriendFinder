@@ -1,5 +1,7 @@
 # Friend Finder
 
+Take the [Friend Finder](https://immense-dawn-29942.herokuapp.com/) quiz.
+
 This is a friend finder app to find new friends that you are compatible with. 
 
 ## Description
